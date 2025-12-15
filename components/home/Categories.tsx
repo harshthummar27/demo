@@ -151,8 +151,8 @@ export default function Categories() {
     }
   }
 
-  // Split categories into 2 rows for mobile (5 items per row)
-  const itemsPerRow = 5
+  // Split categories into 2 rows for mobile (3.5 items per row)
+  const itemsPerRow = 4 // Show 3.5 items visible, so we'll use 4 items per row
   const firstRow = categories.slice(0, itemsPerRow)
   const secondRow = categories.slice(itemsPerRow)
 
@@ -189,27 +189,27 @@ export default function Categories() {
           >
             <div className="inline-flex flex-col gap-2" style={{ minWidth: '100%' }}>
               {/* First Row */}
-              <div className="flex gap-2 px-1">
+              <div className="flex gap-3 px-2">
                 {firstRow.map((category) => (
                   <div
                     key={category.id}
                     className="group cursor-pointer flex flex-col items-center flex-shrink-0 bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md hover:border-[#9fcc2e] transition-all duration-300 p-2"
-                    style={{ width: 'calc((100vw - 48px) / 5)' }}
+                    style={{ width: 'calc((100vw - 64px) / 3.5)' }}
                   >
                     {/* Image with Fixed Dimensions */}
-                    <div className="w-full flex items-center justify-center mb-1" style={{ height: '100px', width: '100%' }}>
-                      <div style={{ width: '100px', height: '100px', position: 'relative' }}>
+                    <div className="w-full flex items-center justify-center mb-1" style={{ height: '90px', width: '100%' }}>
+                      <div style={{ width: '90px', height: '90px', position: 'relative' }}>
                         <Image
                           src={category.image}
                           alt={category.name}
                           fill
                           className="object-contain group-hover:scale-110 transition-transform duration-300"
-                          sizes="100px"
+                          sizes="90px"
                         />
                       </div>
                     </div>
                     {/* Category Name */}
-                    <h3 className="text-[11px] text-gray-900 text-center font-medium leading-tight line-clamp-2 w-full group-hover:text-[#9fcc2e] transition-colors">
+                    <h3 className="text-xs text-gray-900 text-center font-medium leading-tight line-clamp-2 w-full group-hover:text-[#9fcc2e] transition-colors">
                       {category.name}
                     </h3>
                   </div>
@@ -217,27 +217,27 @@ export default function Categories() {
               </div>
 
               {/* Second Row */}
-              <div className="flex gap-2 px-1">
+              <div className="flex gap-3 px-2">
                 {secondRow.map((category) => (
                   <div
                     key={category.id}
                     className="group cursor-pointer flex flex-col items-center flex-shrink-0 bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md hover:border-[#9fcc2e] transition-all duration-300 p-2"
-                    style={{ width: 'calc((100vw - 48px) / 5)' }}
+                    style={{ width: 'calc((100vw - 64px) / 3.5)' }}
                   >
                     {/* Image with Fixed Dimensions */}
-                    <div className="w-full flex items-center justify-center mb-1" style={{ height: '100px', width: '100%' }}>
-                      <div style={{ width: '100px', height: '100px', position: 'relative' }}>
+                    <div className="w-full flex items-center justify-center mb-1" style={{ height: '90px', width: '100%' }}>
+                      <div style={{ width: '90px', height: '90px', position: 'relative' }}>
                         <Image
                           src={category.image}
                           alt={category.name}
                           fill
                           className="object-contain group-hover:scale-110 transition-transform duration-300"
-                          sizes="100px"
+                          sizes="90px"
                         />
                       </div>
                     </div>
                     {/* Category Name */}
-                    <h3 className="text-[11px] text-gray-900 text-center font-medium leading-tight line-clamp-2 w-full group-hover:text-[#9fcc2e] transition-colors">
+                    <h3 className="text-xs text-gray-900 text-center font-medium leading-tight line-clamp-2 w-full group-hover:text-[#9fcc2e] transition-colors">
                       {category.name}
                     </h3>
                   </div>
