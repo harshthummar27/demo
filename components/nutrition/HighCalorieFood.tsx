@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import Link from 'next/link'
 
 interface HighCalorieFoodProps {
   showAsRow?: boolean
@@ -113,6 +112,13 @@ export default function HighCalorieFood({ showAsRow = false }: HighCalorieFoodPr
     <section className="py-8 md:py-12 bg-white">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
         <div className="text-center mb-6 md:mb-8">
+          {/* Badge */}
+          <div className="inline-block mb-3">
+            <span className="px-4 py-2 bg-[#9fcc2e] text-white text-xs sm:text-sm font-semibold rounded-full">
+              HIGH CALORIE FOODS
+            </span>
+          </div>
+          
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 md:mb-3">
             High Calorie Food
           </h2>
@@ -258,15 +264,6 @@ export default function HighCalorieFood({ showAsRow = false }: HighCalorieFoodPr
             ))}
           </div>
         )}
-
-        <div className="text-center mt-8 md:mt-10">
-          <Link
-            href="/nutrition/high-calorie-foods"
-            className="inline-block bg-[#9fcc2e] hover:bg-[#295135] text-white font-semibold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105"
-          >
-            View All High Calorie Foods
-          </Link>
-        </div>
       </div>
     </section>
   )

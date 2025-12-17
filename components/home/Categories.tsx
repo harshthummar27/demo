@@ -1,16 +1,34 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
+
+// Helper function to convert category name to slug
+function getCategorySlug(name: string): string {
+  const slugMap: Record<string, string> = {
+    'Foods': 'foods',
+    'Fruits': 'fruits',
+    'Vegetables': 'vegetables',
+    'Fast Food': 'fast-food',
+    'Wafers and Snacks': 'wafers-and-snacks',
+    'Juices': 'juices',
+    'Dairy Products': 'dairy-products',
+    'Bakery Items': 'bakery-items',
+    'Beverage Items': 'beverage-items',
+    'Dry Fruits and Nuts': 'dry-fruits-and-nuts'
+  }
+  return slugMap[name] || name.toLowerCase().replace(/\s+/g, '-')
+}
 
 export default function Categories() {
 
   const categories = [
-    // {
-    //   id: 1,
-    //   name: 'Foods',
-    //   image: '/categories/foods1.png',
-    //   description: 'Various Food Items'
-    // },
+    {
+      id: 1,
+      name: 'Foods',
+      image: '/categories/foods1.png',
+      description: 'Various Food Items'
+    },
     {
       id: 2,
       name: 'Fruits',
@@ -93,8 +111,9 @@ export default function Categories() {
         <div className="md:hidden">
           <div className="grid grid-cols-3 gap-2">
             {categories.map((category) => (
-              <div
+              <Link
                 key={category.id}
+                href={`/category/${getCategorySlug(category.name)}`}
                 className="group cursor-pointer flex flex-col items-center bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md hover:border-[#9fcc2e] transition-all duration-300 p-2"
               >
                 {/* Image with Fixed Dimensions */}
@@ -113,7 +132,7 @@ export default function Categories() {
                 <h3 className="text-xs text-gray-900 text-center font-medium leading-tight line-clamp-2 w-full group-hover:text-[#9fcc2e] transition-colors">
                   {category.name}
                 </h3>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -129,8 +148,9 @@ export default function Categories() {
             }}
           >
             {categories.map((category) => (
-              <div
+              <Link
                 key={category.id}
+                href={`/category/${getCategorySlug(category.name)}`}
                 className="group cursor-pointer flex flex-col items-center flex-shrink-0 bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-lg hover:border-[#9fcc2e] transition-all duration-300 p-4 w-[140px]"
               >
                 {/* Image with Fixed Dimensions */}
@@ -149,7 +169,7 @@ export default function Categories() {
                 <h3 className="text-sm lg:text-base text-gray-900 text-center font-semibold group-hover:text-[#9fcc2e] transition-colors line-clamp-2">
                   {category.name}
                 </h3>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

@@ -129,6 +129,13 @@ export default function Foods() {
     <section className="py-8 md:py-12 bg-gray-50">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
         <div className="text-center mb-6 md:mb-8">
+          {/* Badge */}
+          <div className="inline-block mb-3">
+            <span className="px-4 py-2 bg-[#9fcc2e] text-white text-xs sm:text-sm font-semibold rounded-full">
+              FOODS
+            </span>
+          </div>
+          
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 md:mb-3">
             Foods
           </h2>

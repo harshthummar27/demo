@@ -19,9 +19,11 @@ export const metadata: Metadata = {
 
 export default function CategoriesPage() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-white">
       <Navbar />
-      <Categories />
+      <div className="pt-16 md:pt-20 bg-white">
+        <Categories />
+      </div>
       <Footer />
     </main>
   )
