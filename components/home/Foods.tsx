@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import Link from 'next/link'
 
 export default function Foods() {
   const foods = [
@@ -212,15 +211,6 @@ export default function Foods() {
               </div>
             ))}
           </div>
-        </div>
-
-        <div className="text-center mt-8 md:mt-10">
-          <Link
-            href="/nutrition"
-            className="inline-block bg-[#9fcc2e] hover:bg-[#295135] text-white font-semibold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105"
-          >
-            View All Foods
-          </Link>
         </div>
       </div>
     </section>
