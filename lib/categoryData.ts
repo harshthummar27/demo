@@ -448,8 +448,6 @@ function getFoodImage(foodName: string, categorySlug: string): string {
     
     // Dairy Products
     'Milk': 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&q=80',
-    'Curd': 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&q=80',
-    'Paneer': 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=400&q=80',
     'Cheese': 'https://images.unsplash.com/photo-1618164436249-4473940d1f5f?w=400&q=80',
     'Butter': 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&q=80',
     'Ghee': 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&q=80',
@@ -463,7 +461,6 @@ function getFoodImage(foodName: string, categorySlug: string): string {
     'Rabdi': 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&q=80',
     'Shrikhand': 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&q=80',
     'Cheesecake': 'https://images.unsplash.com/photo-1618164436249-4473940d1f5f?w=400&q=80',
-    'Milkshake': 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&q=80',
     'Kulfi': 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&q=80',
     
     // Bakery Items
@@ -504,7 +501,6 @@ function getFoodImage(foodName: string, categorySlug: string): string {
     'Boost': 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&q=80',
     'Bournvita': 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&q=80',
     'Fruit Smoothies': 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400&q=80',
-    'Milkshake': 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&q=80',
     'Jaljeera': 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80',
     'Lemon Soda': 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80',
     'Kombucha': 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80',
