@@ -4,7 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
-import { getCategoryBySlug, getFoodsByCategorySlug, categories } from '@/lib/categoryData'
+import { getCategoryBySlug, getFoodsByCategorySlug, categories, getFoodSlug } from '@/lib/categoryData'
+import AddToCompareButton from '@/components/compare/AddToCompareButton'
 
 interface CategoryPageProps {
   params: {
@@ -168,8 +169,9 @@ export default function CategoryPage({ params }: CategoryPageProps) {
           <div className="md:hidden">
             <div className="grid grid-cols-2 gap-3">
               {foods.map((food, index) => (
-                <div
+                <Link
                   key={index}
+                  href={`/category/${params.categoryName}/${getFoodSlug(food.name)}`}
                   className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden border border-gray-200 group"
                 >
                   {/* Image */}
@@ -227,11 +229,11 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                     )}
 
                     {/* Button */}
-                    <button className="w-full bg-gradient-to-r from-[#9fcc2e] to-[#8bb825] hover:from-[#8bb825] hover:to-[#7fb518] text-white font-bold py-1.5 px-2 text-xs rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
+                    <div className="w-full bg-gradient-to-r from-[#9fcc2e] to-[#8bb825] text-white font-bold py-1.5 px-2 text-xs rounded-lg text-center">
                       View Details
-                    </button>
+                    </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -243,69 +245,78 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                 key={index}
                 className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden border border-gray-200 group"
               >
-                {/* Image */}
-                <div className="relative h-40 md:h-44 w-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
-                  <Image
-                    src={food.image || category.image}
-                    alt={food.name}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                    sizes="(max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                  />
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  {/* Veg/Non-Veg Icon */}
-                  {food.type && (
-                    <div className="absolute top-2 left-2 z-10">
-                      {food.type === 'Veg' ? (
-                        <div className="w-6 h-6 border-2 border-green-600 bg-white rounded flex items-center justify-center">
-                          <div className="w-3 h-3 bg-green-600 rounded"></div>
-                        </div>
-                      ) : (
-                        <div className="w-6 h-6 border-2 border-red-600 bg-white rounded flex items-center justify-center">
-                          <div className="w-0 h-0 border-l-[6px] border-r-[6px] border-b-[10px] border-l-transparent border-r-transparent border-b-red-600"></div>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className="p-3">
-                  <h3 className="text-base md:text-lg font-bold text-gray-900 mb-2 group-hover:text-[#9fcc2e] transition-colors line-clamp-2">
-                    {food.name}
-                  </h3>
-                  
-                  {food.calories && (
-                    <div className="space-y-1.5 mb-3 pb-3 border-b border-gray-100">
-                      <div className="flex justify-between items-center py-1.5 px-2 bg-gray-50 rounded-lg">
-                        <span className="text-xs md:text-sm text-gray-600 font-medium">Calories</span>
-                        <span className="text-xs md:text-sm font-bold text-gray-900">{food.calories} kcal</span>
+                <Link href={`/category/${params.categoryName}/${getFoodSlug(food.name)}`}>
+                  {/* Image */}
+                  <div className="relative h-40 md:h-44 w-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
+                    <Image
+                      src={food.image || category.image}
+                      alt={food.name}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      sizes="(max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                    />
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    {/* Veg/Non-Veg Icon */}
+                    {food.type && (
+                      <div className="absolute top-2 left-2 z-10">
+                        {food.type === 'Veg' ? (
+                          <div className="w-6 h-6 border-2 border-green-600 bg-white rounded flex items-center justify-center">
+                            <div className="w-3 h-3 bg-green-600 rounded"></div>
+                          </div>
+                        ) : (
+                          <div className="w-6 h-6 border-2 border-red-600 bg-white rounded flex items-center justify-center">
+                            <div className="w-0 h-0 border-l-[6px] border-r-[6px] border-b-[10px] border-l-transparent border-r-transparent border-b-red-600"></div>
+                          </div>
+                        )}
                       </div>
-                      {food.carbs && (
-                        <div className="flex justify-between items-center py-1.5 px-2 bg-[#9fcc2e]/5 rounded-lg">
-                          <span className="text-xs md:text-sm text-gray-600 font-medium">Carbs</span>
-                          <span className="text-xs md:text-sm font-bold text-[#9fcc2e]">{food.carbs}</span>
-                        </div>
-                      )}
-                      {food.protein && (
-                        <div className="flex justify-between items-center py-1.5 px-2 bg-gray-50 rounded-lg">
-                          <span className="text-xs md:text-sm text-gray-600 font-medium">Protein</span>
-                          <span className="text-xs md:text-sm font-bold text-gray-900">{food.protein}</span>
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Buttons Row */}
-                  <div className="flex gap-2">
-                    <button className="flex-1 bg-gradient-to-r from-[#9fcc2e] to-[#8bb825] hover:from-[#8bb825] hover:to-[#7fb518] text-white font-bold py-2 px-2 text-xs md:text-sm rounded-xl transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
-                      View Details
-                    </button>
-                    <button className="flex-1 bg-white border-2 border-[#9fcc2e] hover:bg-[#9fcc2e] text-[#9fcc2e] hover:text-white font-bold py-2 px-2 text-xs md:text-sm rounded-xl transition-all duration-300 shadow-md hover:shadow-lg">
-                      Compare
-                    </button>
+                    )}
                   </div>
+
+                  {/* Content */}
+                  <div className="p-3">
+                    <h3 className="text-base md:text-lg font-bold text-gray-900 mb-2 group-hover:text-[#9fcc2e] transition-colors line-clamp-2">
+                      {food.name}
+                    </h3>
+                    
+                    {food.calories && (
+                      <div className="space-y-1.5 mb-3 pb-3 border-b border-gray-100">
+                        <div className="flex justify-between items-center py-1.5 px-2 bg-gray-50 rounded-lg">
+                          <span className="text-xs md:text-sm text-gray-600 font-medium">Calories</span>
+                          <span className="text-xs md:text-sm font-bold text-gray-900">{food.calories} kcal</span>
+                        </div>
+                        {food.carbs && (
+                          <div className="flex justify-between items-center py-1.5 px-2 bg-[#9fcc2e]/5 rounded-lg">
+                            <span className="text-xs md:text-sm text-gray-600 font-medium">Carbs</span>
+                            <span className="text-xs md:text-sm font-bold text-[#9fcc2e]">{food.carbs}</span>
+                          </div>
+                        )}
+                        {food.protein && (
+                          <div className="flex justify-between items-center py-1.5 px-2 bg-gray-50 rounded-lg">
+                            <span className="text-xs md:text-sm text-gray-600 font-medium">Protein</span>
+                            <span className="text-xs md:text-sm font-bold text-gray-900">{food.protein}</span>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </Link>
+
+                {/* Buttons Row */}
+                <div className="px-3 pb-3 flex gap-2">
+                  <Link
+                    href={`/category/${params.categoryName}/${getFoodSlug(food.name)}`}
+                    className="flex-1 bg-gradient-to-r from-[#9fcc2e] to-[#8bb825] hover:from-[#8bb825] hover:to-[#7fb518] text-white font-bold py-2 px-2 text-xs md:text-sm rounded-xl text-center shadow-md transition-all duration-300"
+                  >
+                    View Details
+                  </Link>
+                  <AddToCompareButton
+                    categorySlug={params.categoryName}
+                    foodSlug={getFoodSlug(food.name)}
+                    className="flex-1 bg-white border-2 border-[#9fcc2e] hover:bg-[#9fcc2e] text-[#9fcc2e] hover:text-white font-bold py-2 px-2 text-xs md:text-sm rounded-xl shadow-md text-center transition-all duration-300"
+                  >
+                    Compare
+                  </AddToCompareButton>
                 </div>
               </div>
             ))}

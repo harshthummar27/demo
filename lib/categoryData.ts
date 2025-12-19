@@ -597,3 +597,14 @@ export function getFoodsByCategorySlug(slug: string): FoodItem[] {
   })
 }
 
+// Helper function to convert food name to slug
+export function getFoodSlug(foodName: string): string {
+  return foodName.toLowerCase().replace(/\s+/g, '-').replace(/[()]/g, '').replace(/\//g, '-')
+}
+
+// Helper function to get food by category slug and food slug
+export function getFoodBySlug(categorySlug: string, foodSlug: string): FoodItem | undefined {
+  const foods = getFoodsByCategorySlug(categorySlug)
+  return foods.find(food => getFoodSlug(food.name) === foodSlug)
+}
+
