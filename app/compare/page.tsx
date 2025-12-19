@@ -51,18 +51,24 @@ export default async function ComparePage({ searchParams }: ComparePageProps) {
       if (!category || !food) return null
       
       return {
-        category,
-        food,
+        category: {
+          name: category.name,
+          image: category.image,
+          slug: category.slug
+        },
+        food: {
+          name: food.name,
+          calories: food.calories,
+          protein: food.protein,
+          carbs: food.carbs,
+          type: food.type,
+          image: food.image
+        },
         categorySlug,
         foodSlug
       }
     })
-    .filter(Boolean) as Array<{
-      category: ReturnType<typeof getCategoryBySlug>
-      food: ReturnType<typeof getFoodBySlug>
-      categorySlug: string
-      foodSlug: string
-    }>
+    .filter((item): item is NonNullable<typeof item> => item !== null)
 
   // If no foods to compare, show empty state
   if (foodsToCompare.length === 0) {
