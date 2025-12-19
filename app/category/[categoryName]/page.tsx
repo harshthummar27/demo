@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { Suspense } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Navbar from '@/components/layout/Navbar'
@@ -310,13 +311,19 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                   >
                     View Details
                   </Link>
-                  <AddToCompareButton
-                    categorySlug={params.categoryName}
-                    foodSlug={getFoodSlug(food.name)}
-                    className="flex-1 bg-white border-2 border-[#9fcc2e] hover:bg-[#9fcc2e] text-[#9fcc2e] hover:text-white font-bold py-2 px-2 text-xs md:text-sm rounded-xl shadow-md text-center transition-all duration-300"
-                  >
-                    Compare
-                  </AddToCompareButton>
+                  <Suspense fallback={
+                    <div className="flex-1 bg-white border-2 border-[#9fcc2e] text-[#9fcc2e] font-bold py-2 px-2 text-xs md:text-sm rounded-xl shadow-md text-center">
+                      Compare
+                    </div>
+                  }>
+                    <AddToCompareButton
+                      categorySlug={params.categoryName}
+                      foodSlug={getFoodSlug(food.name)}
+                      className="flex-1 bg-white border-2 border-[#9fcc2e] hover:bg-[#9fcc2e] text-[#9fcc2e] hover:text-white font-bold py-2 px-2 text-xs md:text-sm rounded-xl shadow-md text-center transition-all duration-300"
+                    >
+                      Compare
+                    </AddToCompareButton>
+                  </Suspense>
                 </div>
               </div>
             ))}
