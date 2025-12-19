@@ -21,15 +21,20 @@ export const metadata: Metadata = {
 }
 
 interface ComparePageProps {
-  searchParams: {
+  searchParams: Promise<{
+    foods?: string
+  }> | {
     foods?: string
   }
 }
 
-export default function ComparePage({ searchParams }: ComparePageProps) {
+export default async function ComparePage({ searchParams }: ComparePageProps) {
+  // Handle both Promise and non-Promise searchParams (Next.js 13/14 vs 15)
+  const resolvedSearchParams = searchParams instanceof Promise ? await searchParams : searchParams
+  
   // Parse food slugs from URL params (format: categorySlug:foodSlug)
   // Limit to maximum 2 foods
-  const foodsParam = searchParams.foods || ''
+  const foodsParam = resolvedSearchParams.foods || ''
   const foodParams = foodsParam 
     ? decodeURIComponent(foodsParam).split(',').filter(Boolean).slice(0, 2)
     : []
