@@ -1,9 +1,8 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
-import { getCategoryBySlug, getFoodBySlug, getFoodSlug } from '@/lib/categoryData'
+import { getCategoryBySlug, getFoodBySlug } from '@/lib/categoryData'
 import CompareClient from '@/components/compare/CompareClient'
 
 export const metadata: Metadata = {
@@ -113,14 +112,25 @@ export default async function ComparePage({ searchParams }: ComparePageProps) {
       <Navbar />
       
       {/* Header */}
-      <section className="bg-gradient-to-br from-[#9fcc2e] via-[#8bb825] to-[#7fb518] pt-16 md:pt-20 pb-8 md:pb-12">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+      <section className="bg-gradient-to-br from-[#9fcc2e] via-[#8bb825] to-[#7fb518] pt-16 md:pt-20 pb-8 md:pb-12 relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-white rounded-full -translate-x-1/2 translate-y-1/2 blur-3xl"></div>
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-4">
-              Compare Foods
+            <div className="inline-block mb-4">
+              <span className="px-4 py-2 bg-white/25 backdrop-blur-md text-white text-xs sm:text-sm font-semibold rounded-full border-2 border-white/40">
+                PRODUCT COMPARISON
+              </span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 drop-shadow-lg">
+              Compare Products
             </h1>
-            <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
-              Compare up to 2 foods side by side to make informed dietary choices
+            <p className="text-base sm:text-lg md:text-xl text-white/95 max-w-3xl mx-auto font-medium">
+              Side-by-side comparison of nutritional information to help you make informed dietary choices
             </p>
           </div>
         </div>

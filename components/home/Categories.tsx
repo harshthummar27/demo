@@ -2,88 +2,15 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { categories } from '@/lib/categoryData'
 
-// Helper function to convert category name to slug
+// Helper function to get category slug from name
 function getCategorySlug(name: string): string {
-  const slugMap: Record<string, string> = {
-    'Foods': 'foods',
-    'Fruits': 'fruits',
-    'Vegetables': 'vegetables',
-    'Fast Food': 'fast-food',
-    'Wafers and Snacks': 'wafers-and-snacks',
-    'Juices': 'juices',
-    'Dairy Products': 'dairy-products',
-    'Bakery Items': 'bakery-items',
-    'Beverage Items': 'beverage-items',
-    'Dry Fruits and Nuts': 'dry-fruits-and-nuts'
-  }
-  return slugMap[name] || name.toLowerCase().replace(/\s+/g, '-')
+  const category = categories.find(cat => cat.name === name)
+  return category?.slug || name.toLowerCase().replace(/\s+/g, '-')
 }
 
 export default function Categories() {
-
-  const categories = [
-    {
-      id: 1,
-      name: 'Foods',
-      image: '/categories/foods1.png',
-      description: 'Various Food Items'
-    },
-    {
-      id: 2,
-      name: 'Fruits',
-      image: '/categories/fruits.jpg',
-      description: 'Fresh Fruits'
-    },
-    {
-      id: 3,
-      name: 'Vegetables',
-      image: '/categories/Vegetables.png',
-      description: 'Fresh Vegetables'
-    },
-    {
-      id: 4,
-      name: 'Fast Food',
-      image: '/categories/FastFood.png',
-      description: 'Quick Meals'
-    },
-    {
-      id: 5,
-      name: 'Wafers and Snacks',
-      image: '/categories/WafersandSnacks.png',
-      description: 'Chips & Snacks'
-    },
-    {
-      id: 6,
-      name: 'Juices',
-      image: '/categories/Juices.png',
-      description: 'Fresh Juices'
-    },
-    {
-      id: 7,
-      name: 'Dairy Products',
-      image: '/categories/DairyProducts.png',
-      description: 'Milk & Dairy'
-    },
-    {
-      id: 8,
-      name: 'Bakery Items',
-      image: '/categories/BakeryItems.png',
-      description: 'Bread & Pastries'
-    },
-    {
-      id: 9,
-      name: 'Beverage Items',
-      image: '/categories/BeverageItems.png',
-      description: 'Drinks & Beverages'
-    },
-    {
-      id: 10,
-      name: 'Dry Fruits and Nuts',
-      image: '/categories/DryFruitsandNuts.png',
-      description: 'Nuts & Dried Fruits'
-    }
-  ]
 
 
   return (
