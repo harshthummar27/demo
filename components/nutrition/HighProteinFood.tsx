@@ -1,4 +1,29 @@
+'use client'
+
 import Image from 'next/image'
+import Link from 'next/link'
+import AddToCompareButton from '@/components/compare/AddToCompareButton'
+
+// Helper function to convert food name to slug
+function getFoodSlug(foodName: string): string {
+  return foodName.toLowerCase().replace(/\s+/g, '-').replace(/[()]/g, '').replace(/\//g, '-')
+}
+
+// Helper function to get category slug for a food
+function getCategorySlug(foodName: string): string {
+  const name = foodName.toLowerCase()
+  // Map foods to appropriate categories
+  if (name.includes('chicken') || name.includes('salmon') || name.includes('turkey') || name.includes('tuna') || name.includes('egg')) {
+    return 'foods'
+  }
+  if (name.includes('yogurt') || name.includes('cheese') || name.includes('cottage')) {
+    return 'dairy-products'
+  }
+  if (name.includes('lentil') || name.includes('chickpea') || name.includes('tofu')) {
+    return 'foods'
+  }
+  return 'foods'
+}
 
 interface HighProteinFoodProps {
   showAsRow?: boolean
@@ -187,12 +212,19 @@ export default function HighProteinFood({ showAsRow = false }: HighProteinFoodPr
 
                     {/* Buttons Row */}
                     <div className="flex gap-2">
-                      <button className="flex-1 bg-[#9fcc2e] hover:bg-[#295135] text-white font-semibold py-2 px-3 text-xs rounded-lg transition duration-300 transform hover:scale-105">
-                        View More Details →
-                      </button>
-                      <button className="flex-1 bg-transparent border-2 border-[#9fcc2e] hover:bg-[#9fcc2e] text-[#9fcc2e] hover:text-white font-semibold py-2 px-3 text-xs rounded-lg transition duration-300">
+                      <Link
+                        href={`/category/${getCategorySlug(food.name)}/${getFoodSlug(food.name)}`}
+                        className="flex-1 bg-[#9fcc2e] hover:bg-[#295135] text-white font-semibold py-2 px-3 text-xs rounded-lg transition duration-300 transform hover:scale-105 text-center"
+                      >
+                        View Details →
+                      </Link>
+                      <AddToCompareButton
+                        categorySlug={getCategorySlug(food.name)}
+                        foodSlug={getFoodSlug(food.name)}
+                        className="flex-1 bg-transparent border-2 border-[#9fcc2e] hover:bg-[#9fcc2e] text-[#9fcc2e] hover:text-white font-semibold py-2 px-3 text-xs rounded-lg transition duration-300 text-center"
+                      >
                         Compare
-                      </button>
+                      </AddToCompareButton>
                     </div>
                   </div>
                 </div>
@@ -252,12 +284,19 @@ export default function HighProteinFood({ showAsRow = false }: HighProteinFoodPr
 
                 {/* Buttons Row */}
                 <div className="flex gap-2">
-                  <button className="flex-1 bg-[#9fcc2e] hover:bg-[#295135] text-white font-semibold py-1.5 md:py-2 px-2 md:px-3 text-xs rounded-lg transition duration-300 transform hover:scale-105">
-                    View More Details →
-                  </button>
-                  <button className="flex-1 bg-transparent border-2 border-[#9fcc2e] hover:bg-[#9fcc2e] text-[#9fcc2e] hover:text-white font-semibold py-1.5 md:py-2 px-2 md:px-3 text-xs rounded-lg transition duration-300">
-                    High View Compare
-                  </button>
+                  <Link
+                    href={`/category/${getCategorySlug(food.name)}/${getFoodSlug(food.name)}`}
+                    className="flex-1 bg-[#9fcc2e] hover:bg-[#295135] text-white font-semibold py-1.5 md:py-2 px-2 md:px-3 text-xs rounded-lg transition duration-300 transform hover:scale-105 text-center"
+                  >
+                    View Details →
+                  </Link>
+                  <AddToCompareButton
+                    categorySlug={getCategorySlug(food.name)}
+                    foodSlug={getFoodSlug(food.name)}
+                    className="flex-1 bg-transparent border-2 border-[#9fcc2e] hover:bg-[#9fcc2e] text-[#9fcc2e] hover:text-white font-semibold py-1.5 md:py-2 px-2 md:px-3 text-xs rounded-lg transition duration-300 text-center"
+                  >
+                    Compare
+                  </AddToCompareButton>
                 </div>
               </div>
             </div>

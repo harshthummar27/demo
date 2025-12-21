@@ -1,4 +1,13 @@
+'use client'
+
 import Image from 'next/image'
+import Link from 'next/link'
+import AddToCompareButton from '@/components/compare/AddToCompareButton'
+
+// Helper function to convert food name to slug
+function getFoodSlug(foodName: string): string {
+  return foodName.toLowerCase().replace(/\s+/g, '-').replace(/[()]/g, '').replace(/\//g, '-')
+}
 
 export default function Vegetables() {
   const vegetables = [
@@ -200,12 +209,19 @@ export default function Vegetables() {
 
                   {/* Buttons Row */}
                   <div className="flex gap-2">
-                    <button className="flex-1 bg-[#9fcc2e] hover:bg-[#295135] text-white font-semibold py-2 px-3 text-xs rounded-lg transition duration-300 transform hover:scale-105">
-                      View More Details →
-                    </button>
-                    <button className="flex-1 bg-transparent border-2 border-[#9fcc2e] hover:bg-[#9fcc2e] text-[#9fcc2e] hover:text-white font-semibold py-2 px-3 text-xs rounded-lg transition duration-300">
+                    <Link
+                      href={`/category/vegetables/${getFoodSlug(vegetable.name)}`}
+                      className="flex-1 bg-[#9fcc2e] hover:bg-[#295135] text-white font-semibold py-2 px-3 text-xs rounded-lg transition duration-300 transform hover:scale-105 text-center"
+                    >
+                      View Details →
+                    </Link>
+                    <AddToCompareButton
+                      categorySlug="vegetables"
+                      foodSlug={getFoodSlug(vegetable.name)}
+                      className="flex-1 bg-transparent border-2 border-[#9fcc2e] hover:bg-[#9fcc2e] text-[#9fcc2e] hover:text-white font-semibold py-2 px-3 text-xs rounded-lg transition duration-300 text-center"
+                    >
                       Compare
-                    </button>
+                    </AddToCompareButton>
                   </div>
                 </div>
               </div>

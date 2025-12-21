@@ -111,7 +111,24 @@ export const categoryFoods: Record<string, FoodItem[]> = {
     { name: 'Sprouts' },
     { name: 'Chole' },
     { name: 'Rajma' },
-    { name: 'Pulao' }
+    { name: 'Pulao' },
+    { name: 'Wheat Bread' },
+    { name: 'Chicken Curry' },
+    { name: 'Roti/Chapati' },
+    { name: 'Fish Curry' },
+    { name: 'Vegetable Curry' },
+    { name: 'Egg Curry' },
+    { name: 'Biryani' },
+    { name: 'Sambar' },
+    { name: 'Chicken Breast' },
+    { name: 'Salmon' },
+    { name: 'Tofu' },
+    { name: 'Lentils' },
+    { name: 'Turkey' },
+    { name: 'Tuna' },
+    { name: 'Chickpeas' },
+    { name: 'Quinoa' },
+    { name: 'Sardines' }
   ],
   'fruits': [
     { name: 'Apple' },
@@ -133,7 +150,8 @@ export const categoryFoods: Record<string, FoodItem[]> = {
     { name: 'Figs' },
     { name: 'Blackberry' },
     { name: 'Muskmelon' },
-    { name: 'Lemon' }
+    { name: 'Lemon' },
+    { name: 'Avocado' }
   ],
   'vegetables': [
     { name: 'Potato' },
@@ -155,7 +173,13 @@ export const categoryFoods: Record<string, FoodItem[]> = {
     { name: 'Mushroom' },
     { name: 'Bottle Gourd' },
     { name: 'Bitter Gourd' },
-    { name: 'Radish' }
+    { name: 'Radish' },
+    { name: 'Bell Pepper' },
+    { name: 'Cucumber' },
+    { name: 'Eggplant' },
+    { name: 'Zucchini' },
+    { name: 'Kale' },
+    { name: 'Sweet Potato' }
   ],
   'fast-food': [
     { name: 'Pizza' },
@@ -221,7 +245,8 @@ export const categoryFoods: Record<string, FoodItem[]> = {
     { name: 'Amla juice' },
     { name: 'Aloe vera juice' },
     { name: 'Tomato juice' },
-    { name: 'Muskmelon juice' }
+    { name: 'Muskmelon juice' },
+    { name: 'Fortified Orange Juice' }
   ],
   'dairy-products': [
     { name: 'Milk' },
@@ -237,6 +262,8 @@ export const categoryFoods: Record<string, FoodItem[]> = {
     { name: 'Ice Cream' },
     { name: 'Khoya' },
     { name: 'Whey' },
+    { name: 'Greek Yogurt' },
+    { name: 'Cottage Cheese' },
     { name: 'Milk Powder' },
     { name: 'Flavoured Milk' },
     { name: 'Rabdi' },
@@ -265,7 +292,8 @@ export const categoryFoods: Record<string, FoodItem[]> = {
     { name: 'Cupcakes' },
     { name: 'Pie' },
     { name: 'Danish' },
-    { name: 'Tart' }
+    { name: 'Tart' },
+    { name: 'Dark Chocolate' }
   ],
   'beverage-items': [
     { name: 'Tea' },
@@ -309,7 +337,10 @@ export const categoryFoods: Record<string, FoodItem[]> = {
     { name: 'Chia seeds' },
     { name: 'Flax seeds' },
     { name: 'Sunflower seeds' },
-    { name: 'Pumpkin seeds' }
+    { name: 'Pumpkin seeds' },
+    { name: 'Nuts (Almonds)' },
+    { name: 'Peanut Butter' },
+    { name: 'Olive Oil' }
   ]
 }
 
@@ -337,6 +368,23 @@ function getFoodImage(foodName: string, categorySlug: string): string {
     'Chole': 'https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80',
     'Rajma': 'https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80',
     'Pulao': 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&q=80',
+    'Wheat Bread': 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&q=80',
+    'Chicken Curry': 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=400&q=80',
+    'Roti/Chapati': 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&q=80',
+    'Fish Curry': 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&q=80',
+    'Vegetable Curry': 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=400&q=80',
+    'Egg Curry': 'https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=400&q=80',
+    'Biryani': 'https://images.unsplash.com/photo-1563379091339-03246963d19a?w=400&q=80',
+    'Sambar': 'https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80',
+    'Chicken Breast': 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=400&q=80',
+    'Salmon': 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&q=80',
+    'Tofu': 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=400&q=80',
+    'Lentils': 'https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80',
+    'Turkey': 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=400&q=80',
+    'Tuna': 'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400&q=80',
+    'Chickpeas': 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400&q=80',
+    'Quinoa': 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&q=80',
+    'Sardines': 'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400&q=80',
     
     // Fruits
     'Apple': 'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400&q=80',
@@ -359,6 +407,7 @@ function getFoodImage(foodName: string, categorySlug: string): string {
     'Blackberry': 'https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=400&q=80',
     'Muskmelon': 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400&q=80',
     'Lemon': 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400&q=80',
+    'Avocado': 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=400&q=80',
     
     // Vegetables
     'Potato': 'https://images.unsplash.com/photo-1518977822534-7049a61ee0c2?w=400&q=80',
@@ -381,6 +430,12 @@ function getFoodImage(foodName: string, categorySlug: string): string {
     'Bottle Gourd': 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=400&q=80',
     'Bitter Gourd': 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=400&q=80',
     'Radish': 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=400&q=80',
+    'Bell Pepper': 'https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?w=400&q=80',
+    'Cucumber': 'https://images.unsplash.com/photo-1604977042238-9f43e3e4e5e5?w=400&q=80',
+    'Eggplant': 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=400&q=80',
+    'Zucchini': 'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=400&q=80',
+    'Kale': 'https://images.unsplash.com/photo-1604977049386-4bb0b5af3e40?w=400&q=80',
+    'Sweet Potato': 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=400&q=80',
     
     // Fast Food
     'Pizza': 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80',
@@ -445,6 +500,7 @@ function getFoodImage(foodName: string, categorySlug: string): string {
     'Aloe vera juice': 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400&q=80',
     'Tomato juice': 'https://images.unsplash.com/photo-1592841200221-8c0ac03d0a5a?w=400&q=80',
     'Muskmelon juice': 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400&q=80',
+    'Fortified Orange Juice': 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400&q=80',
     
     // Dairy Products
     'Milk': 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&q=80',
@@ -462,6 +518,8 @@ function getFoodImage(foodName: string, categorySlug: string): string {
     'Shrikhand': 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&q=80',
     'Cheesecake': 'https://images.unsplash.com/photo-1618164436249-4473940d1f5f?w=400&q=80',
     'Kulfi': 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&q=80',
+    'Greek Yogurt': 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&q=80',
+    'Cottage Cheese': 'https://images.unsplash.com/photo-1618164436249-4473940d1f5f?w=400&q=80',
     
     // Bakery Items
     'Bread': 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&q=80',
@@ -484,6 +542,7 @@ function getFoodImage(foodName: string, categorySlug: string): string {
     'Pie': 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80',
     'Danish': 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&q=80',
     'Tart': 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80',
+    'Dark Chocolate': 'https://images.unsplash.com/photo-1606312619070-d48b4bdc1b7e?w=400&q=80',
     
     // Beverages
     'Tea': 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80',
@@ -524,6 +583,9 @@ function getFoodImage(foodName: string, categorySlug: string): string {
     'Flax seeds': 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&q=80',
     'Sunflower seeds': 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&q=80',
     'Pumpkin seeds': 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&q=80',
+    'Nuts (Almonds)': 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&q=80',
+    'Peanut Butter': 'https://images.unsplash.com/photo-1628088062854-d1870b4553da?w=400&q=80',
+    'Olive Oil': 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&q=80',
   }
   
   // Return mapped image or fallback to category image
