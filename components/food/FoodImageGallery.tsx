@@ -21,9 +21,9 @@ export default function FoodImageGallery({ mainImage, foodName, categoryImage }:
   ].filter(Boolean)
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 md:gap-6">
-      {/* Thumbnail Images - Left Side (Desktop) / Top (Mobile) */}
-      <div className="flex md:flex-col gap-2 md:gap-3 order-2 md:order-1">
+    <div className="flex gap-4 md:gap-6">
+      {/* Thumbnail Images - Left Side Vertical Column */}
+      <div className="flex flex-col gap-2 md:gap-3 flex-shrink-0">
         {images.map((img, index) => (
           <button
             key={index}
@@ -46,7 +46,7 @@ export default function FoodImageGallery({ mainImage, foodName, categoryImage }:
       </div>
 
       {/* Main Image - Center */}
-      <div className="flex-1 order-1 md:order-2">
+      <div className="flex-1">
         <div className="relative w-full aspect-square bg-white rounded-xl overflow-hidden border border-gray-200 shadow-lg">
           <Image
             src={images[selectedImage]}
