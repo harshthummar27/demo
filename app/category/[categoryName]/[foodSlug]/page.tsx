@@ -8,6 +8,7 @@ import { getCategoryBySlug, getFoodBySlug, getFoodsByCategorySlug, getFoodSlug, 
 import FoodImageGallery from '@/components/food/FoodImageGallery'
 import ProductInfoBox from '@/components/food/ProductInfoBox'
 import OffersSection from '@/components/food/OffersSection'
+import CategoryDetailInfo from '@/components/food/CategoryDetailInfo'
 import { Suspense } from 'react'
 import AddToCompareButton from '@/components/compare/AddToCompareButton'
 
@@ -88,6 +89,74 @@ export default function FoodDetailPage({ params }: FoodDetailPageProps) {
 
   const pricing = calculatePrice(food.calories)
 
+  // Calculate additional nutritional values
+  const getMineralValue = (calories?: string) => {
+    if (!calories) return '20g'
+    const cal = parseInt(calories)
+    // Simple calculation: minerals roughly 15-25% of calories
+    return `${Math.round(cal * 0.2)}g`
+  }
+
+  // Get nutrients based on food type and category
+  const getNutrients = () => {
+    const baseNutrients = [
+      { name: 'Fat', value: '1g' },
+      { name: 'Fiber', value: '0.3g' },
+      { name: 'Potassium', value: '0.5g' },
+      { name: 'Vitamin C', value: '5g' }
+    ]
+    
+    // Customize based on category
+    if (params.categoryName === 'fruits') {
+      return [
+        { name: 'Fat', value: '0.3g' },
+        { name: 'Fiber', value: '2.6g' },
+        { name: 'Potassium', value: '358mg' },
+        { name: 'Vitamin C', value: '8.7mg' }
+      ]
+    }
+    
+    return baseNutrients
+  }
+
+  // Get health benefits based on food
+  const getHealthBenefits = () => {
+    const benefits = [
+      { benefit: 'Energy Boost', description: 'High natural carbs' },
+      { benefit: 'Muscle Support', description: 'Potassium helps muscle recovery' }
+    ]
+    
+    if (food.protein && parseInt(food.protein) > 5) {
+      benefits.push({ benefit: 'Protein Rich', description: 'Supports muscle growth and repair' })
+    }
+    
+    if (params.categoryName === 'fruits') {
+      benefits[0] = { benefit: 'Energy Boost', description: 'Natural sugars provide quick energy' }
+      benefits.push({ benefit: 'Antioxidant Power', description: 'Rich in vitamins and antioxidants' })
+    }
+    
+    return benefits.slice(0, 2) // Return first 2
+  }
+
+  // Get highlights based on food
+  const getHighlights = () => {
+    const highlights = []
+    
+    if (food.protein && parseInt(food.protein) > 5) {
+      highlights.push('Best for Pre workout')
+    } else {
+      highlights.push('Best for Pre workout')
+    }
+    
+    highlights.push('Rich in vitamins')
+    
+    if (params.categoryName === 'fruits') {
+      highlights.push('Natural and Fresh')
+    }
+    
+    return highlights.slice(0, 2) // Return first 2
+  }
+
   return (
     <main className="min-h-screen bg-white">
       <Navbar />
@@ -114,7 +183,7 @@ export default function FoodDetailPage({ params }: FoodDetailPageProps) {
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12">
             {/* Left Column - Image Gallery */}
-            <div className="w-full">
+            <div className="w-full" data-food-gallery>
               <FoodImageGallery 
                 mainImage={mainImage}
                 foodName={food.name}
@@ -123,113 +192,26 @@ export default function FoodDetailPage({ params }: FoodDetailPageProps) {
             </div>
 
             {/* Right Column - Product Info */}
-            <div className="w-full space-y-6">
-              {/* Product Info Box */}
-              <ProductInfoBox
-                brand={category.name}
+            <div className="w-full">
+              <CategoryDetailInfo
                 productName={food.name}
-                netQuantity="pack | 100g"
-                rating="4.4"
+                brand={category.name}
+                quantity="100g"
+                protein={food.protein || '10g'}
+                mineral={getMineralValue(food.calories)}
+                calories={food.calories || '89'}
+                carbs={food.carbs}
+                highlights={getHighlights()}
+                nutrients={getNutrients()}
+                healthBenefits={getHealthBenefits()}
+                rating={4.4}
+                categorySlug={params.categoryName}
+                foodSlug={params.foodSlug}
+                foodType={food.type}
                 price={pricing.price}
                 originalPrice={pricing.originalPrice}
                 discount={pricing.discount}
-                categorySlug={params.categoryName}
-                foodType={food.type}
-                calories={food.calories}
-                protein={food.protein}
-                carbs={food.carbs}
               />
-
-              {/* Offers Section */}
-              <OffersSection />
-
-              {/* Highlights Section */}
-              <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-                <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 p-4 md:p-6 pb-0">Highlights</h2>
-                
-                <div className="grid md:grid-cols-2 gap-0">
-                  {/* Left Column */}
-                  <div className="divide-y divide-gray-200">
-                    <div className="p-4 md:p-6">
-                      <div className="text-sm text-gray-500 font-medium mb-1">Brand</div>
-                      <div className="text-base font-semibold text-gray-900">{category.name}</div>
-                    </div>
-                    <div className="p-4 md:p-6">
-                      <div className="text-sm text-gray-500 font-medium mb-1">Product Type</div>
-                      <div className="text-base font-semibold text-gray-900">{category.name}</div>
-                    </div>
-                    <div className="p-4 md:p-6">
-                      <div className="text-sm text-gray-500 font-medium mb-1">Dietary Preference</div>
-                      <div className="text-base font-semibold text-gray-900">
-                        {food.type === 'Veg' ? 'Vegetarian' : food.type === 'Non-veg' ? 'Non-Vegetarian' : 'N/A'}
-                      </div>
-                    </div>
-                    <div className="p-4 md:p-6">
-                      <div className="text-sm text-gray-500 font-medium mb-1">Serving Size</div>
-                      <div className="text-base font-semibold text-gray-900">100g</div>
-                    </div>
-                    <div className="p-4 md:p-6">
-                      <div className="text-sm text-gray-500 font-medium mb-1">Is Perishable</div>
-                      <div className="text-base font-semibold text-gray-900">Yes</div>
-                    </div>
-                  </div>
-
-                  {/* Right Column */}
-                  <div className="divide-y divide-gray-200 border-t md:border-t-0 md:border-l border-gray-200">
-                    <div className="p-4 md:p-6">
-                      <div className="text-sm text-gray-500 font-medium mb-1">Calories</div>
-                      <div className="text-base font-semibold text-gray-900">{food.calories || 'N/A'} kcal</div>
-                    </div>
-                    <div className="p-4 md:p-6">
-                      <div className="text-sm text-gray-500 font-medium mb-1">Protein</div>
-                      <div className="text-base font-semibold text-[#9fcc2e]">{food.protein || 'N/A'}</div>
-                    </div>
-                    <div className="p-4 md:p-6">
-                      <div className="text-sm text-gray-500 font-medium mb-1">Carbohydrates</div>
-                      <div className="text-base font-semibold text-gray-900">{food.carbs || 'N/A'}</div>
-                    </div>
-                    <div className="p-4 md:p-6">
-                      <div className="text-sm text-gray-500 font-medium mb-1">Category</div>
-                      <div className="text-base font-semibold text-gray-900">{category.name}</div>
-                    </div>
-                    <div className="p-4 md:p-6">
-                      <div className="text-sm text-gray-500 font-medium mb-1">Key Features</div>
-                      <div className="text-base font-semibold text-gray-900">Rich in nutrients, Fresh & Healthy</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* About Section */}
-              <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 md:p-8">
-                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">About {food.name}</h3>
-                <p className="text-gray-700 leading-relaxed mb-4">
-                  {food.name} is a nutritious food item from the <span className="font-semibold text-[#9fcc2e]">{category.name.toLowerCase()}</span> category. 
-                  It provides essential nutrients including <span className="font-semibold">{food.protein || 'protein'}</span> and <span className="font-semibold">{food.carbs || 'carbohydrates'}</span>, 
-                  making it a valuable addition to a balanced diet.
-                </p>
-                <div className="mt-6">
-                  <h4 className="font-semibold text-gray-900 mb-2">Key Benefits:</h4>
-                  <ul className="space-y-2 text-gray-700">
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#9fcc2e] font-bold mt-1">•</span>
-                      <span>Rich in essential nutrients and vitamins</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#9fcc2e] font-bold mt-1">•</span>
-                      <span>Supports overall health and wellness</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#9fcc2e] font-bold mt-1">•</span>
-                      <span>Can be part of a balanced diet plan</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#9fcc2e] font-bold mt-1">•</span>
-                      <span>Helps meet daily nutritional requirements</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
             </div>
           </div>
         </div>
