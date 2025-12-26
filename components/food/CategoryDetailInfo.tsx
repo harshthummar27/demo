@@ -71,9 +71,9 @@ export default function CategoryDetailInfo({
 
   return (
     <div className="w-full space-y-4">
-      {/* Product Overview Box - First Box */}
+      {/* Product Overview Box - First Box - Redesigned */}
       <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
-        {/* Brand */}
+        {/* Category/Brand */}
         {brand && (
           <div className="mb-2">
             <Link href={categorySlug ? `/category/${categorySlug}` : '#'}>
@@ -85,7 +85,7 @@ export default function CategoryDetailInfo({
         )}
 
         {/* Product Name */}
-        <h1 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 leading-tight">
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 leading-tight">
           {productName}
         </h1>
 
@@ -94,17 +94,21 @@ export default function CategoryDetailInfo({
           Net Qty: 1 pack | {quantity}
         </div>
 
-        {/* Rating */}
-        <div className="flex items-center gap-2 mb-4">
-          <svg className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
-            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-          </svg>
-          <span className="text-gray-900 font-semibold">{rating}</span>
-          <span className="text-gray-500 text-sm">/5</span>
+        {/* Rating and Reviews */}
+        <div className="flex items-center gap-3 mb-4">
+          <div className="flex items-center gap-1.5">
+            <svg className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+              <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+            </svg>
+            <span className="text-gray-900 font-semibold">{rating}</span>
+            <span className="text-gray-500 text-sm">/5</span>
+          </div>
+          <div className="w-px h-4 bg-gray-300"></div>
+          <span className="text-sm text-gray-600">120+ Reviews</span>
         </div>
 
         {/* Pricing */}
-        <div className="mb-4">
+        <div className="mb-5">
           <div className="flex items-baseline gap-3 mb-1">
             <span className="text-3xl md:text-4xl font-bold text-[#9fcc2e]">{price || '₹99'}</span>
             {originalPrice && (
@@ -113,6 +117,95 @@ export default function CategoryDetailInfo({
             {discount && (
               <span className="text-sm font-semibold text-[#9fcc2e]">{discount}</span>
             )}
+          </div>
+        </div>
+
+        {/* Key Nutritional Information Box - Reduced Size */}
+        <div className="bg-[#9fcc2e]/10 rounded-lg p-3 mb-5 border border-[#9fcc2e]/20">
+          <div className="flex items-baseline gap-1.5 mb-3">
+            <span className="text-3xl md:text-4xl font-black text-gray-900">{calories || '150'}</span>
+            <span className="text-base text-gray-500 font-medium">kcal</span>
+            <span className="text-sm text-gray-400 ml-1.5">per serving</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <div className="px-3 py-1.5 bg-[#9fcc2e]/20 rounded-full">
+              <span className="text-xs font-semibold text-[#9fcc2e]">Protein: {protein || '2g'}</span>
+            </div>
+            <div className="px-3 py-1.5 bg-[#9fcc2e]/20 rounded-full">
+              <span className="text-xs font-semibold text-gray-700">Carbs: {carbs || '15g'}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Dietary Label */}
+        {foodType && (
+          <div className="mb-5">
+            {foodType === 'Veg' ? (
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#9fcc2e]/10 rounded-full border border-[#9fcc2e]/30">
+                <div className="w-5 h-5 border-2 border-green-600 bg-white rounded-full flex items-center justify-center">
+                  <div className="w-2.5 h-2.5 bg-green-600 rounded-full"></div>
+                </div>
+                <span className="text-sm font-semibold text-gray-900">Vegetarian</span>
+              </div>
+            ) : (
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 rounded-full border border-red-200">
+                <div className="w-5 h-5 border-2 border-red-600 bg-white rounded-full flex items-center justify-center">
+                  <div className="w-0 h-0 border-l-[4px] border-r-[4px] border-b-[6px] border-l-transparent border-r-transparent border-b-red-600"></div>
+                </div>
+                <span className="text-sm font-semibold text-gray-900">Non-Vegetarian</span>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Action Buttons */}
+        <div className="space-y-3 mb-5">
+          {/* Add to Compare Button */}
+          {categorySlug && foodSlug && (
+            <Link
+              href={`/compare?foods=${encodeURIComponent(`${categorySlug}:${foodSlug}`)}`}
+              className="block w-full bg-[#9fcc2e] hover:bg-[#8bb825] text-white font-bold py-4 px-6 rounded-xl text-center transition-all duration-300 transform hover:scale-[1.02] shadow-lg"
+            >
+              Add to Compare
+            </Link>
+          )}
+
+          {/* View More from Category Button */}
+          {categorySlug && brand && (
+            <Link
+              href={`/category/${categorySlug}`}
+              className="block w-full bg-white border-2 border-[#9fcc2e] hover:bg-[#9fcc2e] text-[#9fcc2e] hover:text-white font-bold py-4 px-6 rounded-xl text-center transition-all duration-300 transform hover:scale-[1.02] shadow-md"
+            >
+              View More from {brand}
+            </Link>
+          )}
+        </div>
+
+        {/* Service Features - Horizontal Layout */}
+        <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+          <div className="flex items-center gap-2 flex-1">
+            <div className="w-6 h-6 bg-[#9fcc2e]/10 rounded-full flex items-center justify-center flex-shrink-0">
+              <svg className="w-3.5 h-3.5 text-[#9fcc2e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <span className="text-xs text-gray-600 font-medium">Fast Delivery</span>
+          </div>
+          <div className="flex items-center gap-2 flex-1 justify-center">
+            <div className="w-6 h-6 bg-[#9fcc2e]/10 rounded-full flex items-center justify-center flex-shrink-0">
+              <svg className="w-3.5 h-3.5 text-[#9fcc2e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <span className="text-xs text-gray-600 font-medium">100% Fresh</span>
+          </div>
+          <div className="flex items-center gap-2 flex-1 justify-end">
+            <div className="w-6 h-6 bg-[#9fcc2e]/10 rounded-full flex items-center justify-center flex-shrink-0">
+              <svg className="w-3.5 h-3.5 text-[#9fcc2e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <span className="text-xs text-gray-600 font-medium">24/7 Support</span>
           </div>
         </div>
       </div>
