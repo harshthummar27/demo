@@ -1,12 +1,33 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { getCartItemCount, getTotalProtein } from '@/lib/cartUtils'
+import CartDropdown from './CartDropdown'
 
 export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState('')
+  const [cartCount, setCartCount] = useState(0)
+  const [totalProtein, setTotalProtein] = useState(0)
+  const [isCartOpen, setIsCartOpen] = useState(false)
   const pathname = usePathname()
+
+  useEffect(() => {
+    const updateCart = () => {
+      setCartCount(getCartItemCount())
+      setTotalProtein(getTotalProtein())
+    }
+
+    updateCart()
+
+    // Listen for cart updates
+    window.addEventListener('cartUpdated', updateCart)
+
+    return () => {
+      window.removeEventListener('cartUpdated', updateCart)
+    }
+  }, [])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -55,6 +76,32 @@ export default function Navbar() {
             <Link href="/nutrition" className="bg-transparent border-2 border-[#9fcc2e] hover:bg-[#9fcc2e] text-[#9fcc2e] hover:text-white font-semibold py-1.5 px-4 text-sm rounded-lg transition duration-300 whitespace-nowrap">
               Nutrition
             </Link>
+            
+            {/* Cart Button */}
+            <div className="relative">
+              <button
+                onClick={() => setIsCartOpen(!isCartOpen)}
+                className="relative bg-transparent border-2 border-[#9fcc2e] hover:bg-[#9fcc2e] text-[#9fcc2e] hover:text-white font-semibold py-1.5 px-4 text-sm rounded-lg transition duration-300 flex items-center gap-2"
+                title={cartCount > 0 ? `Cart: ${cartCount} items, Total Protein: ${totalProtein}g` : 'Cart'}
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+                {cartCount > 0 && (
+                  <>
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                      {cartCount}
+                    </span>
+                    {totalProtein > 0 && (
+                      <span className="text-xs font-bold bg-[#9fcc2e]/20 px-2 py-0.5 rounded">
+                        {totalProtein}g
+                      </span>
+                    )}
+                  </>
+                )}
+              </button>
+              <CartDropdown isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+            </div>
           </div>
 
           {/* Mobile Navigation Buttons */}
@@ -65,6 +112,25 @@ export default function Navbar() {
             <Link href="/nutrition" className="bg-transparent border border-[#9fcc2e] hover:bg-[#9fcc2e] text-[#9fcc2e] hover:text-white font-semibold py-1.5 px-2 text-[10px] sm:text-xs rounded-md transition duration-300 whitespace-nowrap">
               Nutrition
             </Link>
+            
+            {/* Cart Button - Mobile */}
+            <div className="relative">
+              <button
+                onClick={() => setIsCartOpen(!isCartOpen)}
+                className="relative bg-transparent border border-[#9fcc2e] hover:bg-[#9fcc2e] text-[#9fcc2e] hover:text-white font-semibold py-1.5 px-2 text-[10px] sm:text-xs rounded-md transition duration-300 flex items-center"
+                title={cartCount > 0 ? `Cart: ${cartCount} items, Total Protein: ${totalProtein}g` : 'Cart'}
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+                {cartCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[8px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
+              </button>
+              <CartDropdown isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+            </div>
           </div>
         </div>
       </div>
