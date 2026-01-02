@@ -9,6 +9,7 @@ interface AddToCartButtonProps {
   foodSlug: string
   protein?: string
   calories?: string
+  carbs?: string
   image?: string
   price?: string
   className?: string
@@ -21,6 +22,7 @@ export default function AddToCartButton({
   foodSlug,
   protein,
   calories,
+  carbs,
   image,
   price,
   className = '',
@@ -59,6 +61,7 @@ export default function AddToCartButton({
       foodSlug,
       protein: protein || '0g',
       calories,
+      carbs,
       image,
       price
     }

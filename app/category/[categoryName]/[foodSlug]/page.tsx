@@ -11,6 +11,7 @@ import OffersSection from '@/components/food/OffersSection'
 import CategoryDetailInfo from '@/components/food/CategoryDetailInfo'
 import { Suspense } from 'react'
 import AddToCompareButton from '@/components/compare/AddToCompareButton'
+import AddToCartButton from '@/components/food/AddToCartButton'
 
 interface FoodDetailPageProps {
   params: {
@@ -41,18 +42,38 @@ export async function generateMetadata({ params }: FoodDetailPageProps): Promise
   
   if (!category || !food) {
     return {
-      title: 'Food Not Found',
+      title: 'Food Not Found | FitZone Gym',
+      description: 'The requested food item could not be found.',
     }
   }
 
+  const foodName = food.name.toLowerCase()
+  const categoryName = category.name.toLowerCase()
+  const calories = food.calories || 'N/A'
+  const protein = food.protein || 'N/A'
+  const carbs = food.carbs || 'N/A'
+
   return {
-    title: `${food.name} - ${category.name} | FitZone Gym`,
-    description: `Learn about ${food.name.toLowerCase()}. Nutritional information: ${food.calories} calories, ${food.protein} protein, ${food.carbs} carbs per serving.`,
-    keywords: `${food.name.toLowerCase()}, ${category.name.toLowerCase()}, nutrition, calories, protein, carbs, food information`,
+    title: `${food.name} - ${category.name} | Complete Nutritional Information | FitZone Gym`,
+    description: `Complete nutritional information for ${foodName}. Contains ${calories} calories, ${protein} protein, ${carbs} carbs per serving. Learn about health benefits, nutrients, and dietary information for ${foodName} in the ${categoryName} category.`,
+    keywords: `${foodName}, ${categoryName}, nutrition facts, ${foodName} nutrition, ${foodName} calories, ${foodName} protein, ${foodName} carbs, ${categoryName} foods, nutritional information, food details, health benefits, dietary information`,
     openGraph: {
-      title: `${food.name} - ${category.name}`,
-      description: `Nutritional information for ${food.name.toLowerCase()}.`,
+      title: `${food.name} - ${category.name} | FitZone Gym`,
+      description: `Complete nutritional information for ${foodName}. ${calories} calories, ${protein} protein, ${carbs} carbs per serving.`,
       type: 'website',
+      images: food.image ? [
+        {
+          url: food.image,
+          width: 1200,
+          height: 630,
+          alt: `${food.name} - ${category.name}`,
+        }
+      ] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${food.name} - ${category.name}`,
+      description: `Complete nutritional information for ${foodName}.`,
     },
     alternates: {
       canonical: `/category/${params.categoryName}/${params.foodSlug}`,
@@ -211,6 +232,7 @@ export default function FoodDetailPage({ params }: FoodDetailPageProps) {
                 price={pricing.price}
                 originalPrice={pricing.originalPrice}
                 discount={pricing.discount}
+                image={mainImage}
               />
             </div>
           </div>
@@ -234,34 +256,49 @@ export default function FoodDetailPage({ params }: FoodDetailPageProps) {
             <div className="md:hidden">
               <div className="grid grid-cols-2 gap-4">
                 {relatedFoods.map((relatedFood, index) => (
-                  <Link
+                  <div
                     key={index}
-                    href={`/category/${params.categoryName}/${getFoodSlug(relatedFood.name)}`}
-                    className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden border border-gray-200 group"
+                    className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden border border-gray-200 group relative"
                   >
-                    <div className="relative h-32 w-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
-                      <Image
-                        src={relatedFood.image || category.image}
-                        alt={relatedFood.name}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
-                        sizes="(max-width: 768px) 50vw, 25vw"
-                      />
-                    </div>
-                    <div className="p-3">
-                      <h3 className="text-sm font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-[#9fcc2e] transition-colors">
-                        {relatedFood.name}
-                      </h3>
-                      {relatedFood.calories && (
-                        <div className="flex items-center gap-1 text-xs text-gray-600">
-                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                          </svg>
-                          <span className="font-semibold">{relatedFood.calories}</span> kcal
+                    <Link
+                      href={`/category/${params.categoryName}/${getFoodSlug(relatedFood.name)}`}
+                      className="block"
+                    >
+                      <div className="relative h-32 w-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
+                        <Image
+                          src={relatedFood.image || category.image}
+                          alt={relatedFood.name}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-500"
+                          sizes="(max-width: 768px) 50vw, 25vw"
+                        />
+                        <div className="absolute top-2 right-2 z-10">
+                          <AddToCartButton
+                            productName={relatedFood.name}
+                            categorySlug={params.categoryName}
+                            foodSlug={getFoodSlug(relatedFood.name)}
+                            protein={relatedFood.protein}
+                            calories={relatedFood.calories}
+                            image={relatedFood.image || category.image}
+                            size="sm"
+                          />
                         </div>
-                      )}
-                    </div>
-                  </Link>
+                      </div>
+                      <div className="p-3">
+                        <h3 className="text-sm font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-[#9fcc2e] transition-colors">
+                          {relatedFood.name}
+                        </h3>
+                        {relatedFood.calories && (
+                          <div className="flex items-center gap-1 text-xs text-gray-600">
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                            <span className="font-semibold">{relatedFood.calories}</span> kcal
+                          </div>
+                        )}
+                      </div>
+                    </Link>
+                  </div>
                 ))}
               </div>
             </div>
@@ -269,50 +306,65 @@ export default function FoodDetailPage({ params }: FoodDetailPageProps) {
             {/* Desktop View: Grid */}
             <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {relatedFoods.map((relatedFood, index) => (
-                <Link
+                <div
                   key={index}
-                  href={`/category/${params.categoryName}/${getFoodSlug(relatedFood.name)}`}
-                  className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden border border-gray-200 group"
+                  className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden border border-gray-200 group relative"
                 >
-                  <div className="relative h-48 w-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
-                    <Image
-                      src={relatedFood.image || category.image}
-                      alt={relatedFood.name}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-500"
-                      sizes="(max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                    />
-                    {relatedFood.type && (
-                      <div className="absolute top-3 right-3">
-                        {relatedFood.type === 'Veg' ? (
-                          <div className="w-6 h-6 border-2 border-green-600 bg-white rounded-full flex items-center justify-center">
-                            <div className="w-3 h-3 bg-green-600 rounded-full"></div>
-                          </div>
-                        ) : (
-                          <div className="w-6 h-6 border-2 border-red-600 bg-white rounded-full flex items-center justify-center">
-                            <div className="w-0 h-0 border-l-[5px] border-r-[5px] border-b-[8px] border-l-transparent border-r-transparent border-b-red-600"></div>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-4">
-                    <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#9fcc2e] transition-colors line-clamp-2">
-                      {relatedFood.name}
-                    </h3>
-                    <div className="flex items-center justify-between">
-                      {relatedFood.calories && (
-                        <div className="flex items-center gap-1 text-sm text-gray-600">
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                          </svg>
-                          <span className="font-semibold">{relatedFood.calories}</span> kcal
+                  <Link
+                    href={`/category/${params.categoryName}/${getFoodSlug(relatedFood.name)}`}
+                    className="block"
+                  >
+                    <div className="relative h-48 w-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
+                      <Image
+                        src={relatedFood.image || category.image}
+                        alt={relatedFood.name}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        sizes="(max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                      />
+                      {relatedFood.type && (
+                        <div className="absolute top-3 left-3">
+                          {relatedFood.type === 'Veg' ? (
+                            <div className="w-6 h-6 border-2 border-green-600 bg-white rounded-full flex items-center justify-center">
+                              <div className="w-3 h-3 bg-green-600 rounded-full"></div>
+                            </div>
+                          ) : (
+                            <div className="w-6 h-6 border-2 border-red-600 bg-white rounded-full flex items-center justify-center">
+                              <div className="w-0 h-0 border-l-[5px] border-r-[5px] border-b-[8px] border-l-transparent border-r-transparent border-b-red-600"></div>
+                            </div>
+                          )}
                         </div>
                       )}
-                      <span className="text-[#9fcc2e] font-semibold text-sm">View Details →</span>
+                      <div className="absolute top-3 right-3 z-10">
+                        <AddToCartButton
+                          productName={relatedFood.name}
+                          categorySlug={params.categoryName}
+                          foodSlug={getFoodSlug(relatedFood.name)}
+                          protein={relatedFood.protein}
+                          calories={relatedFood.calories}
+                          image={relatedFood.image || category.image}
+                          size="md"
+                        />
+                      </div>
                     </div>
-                  </div>
-                </Link>
+                    <div className="p-4">
+                      <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#9fcc2e] transition-colors line-clamp-2">
+                        {relatedFood.name}
+                      </h3>
+                      <div className="flex items-center justify-between">
+                        {relatedFood.calories && (
+                          <div className="flex items-center gap-1 text-sm text-gray-600">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                            <span className="font-semibold">{relatedFood.calories}</span> kcal
+                          </div>
+                        )}
+                        <span className="text-[#9fcc2e] font-semibold text-sm">View Details →</span>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
               ))}
             </div>
           </div>

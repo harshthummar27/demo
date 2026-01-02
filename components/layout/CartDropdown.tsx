@@ -140,9 +140,16 @@ export default function CartDropdown({ isOpen, onClose }: CartDropdownProps) {
             <span className="text-sm font-medium text-gray-700">Total Protein:</span>
             <span className="text-lg font-bold text-[#9fcc2e]">{totalProtein}g</span>
           </div>
-          <div className="text-xs text-gray-500 text-center">
+          <div className="text-xs text-gray-500 text-center mb-3">
             {cartItems.length} {cartItems.length === 1 ? 'item' : 'items'} in cart
           </div>
+          <Link
+            href="/cart"
+            onClick={onClose}
+            className="block w-full bg-[#9fcc2e] hover:bg-[#8bb825] text-white font-bold py-2.5 px-4 rounded-lg text-center transition-all duration-300 transform hover:scale-[1.02] shadow-md"
+          >
+            View Full Cart
+          </Link>
         </div>
       )}
     </div>

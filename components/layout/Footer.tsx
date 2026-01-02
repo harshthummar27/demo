@@ -64,6 +64,9 @@ export default function Footer() {
               <Link href="/privacy-policy" className="hover:text-[#9fcc2e] transition">
                 Privacy Policy
               </Link>
+              <Link href="/terms-and-conditions" className="hover:text-[#9fcc2e] transition">
+                Terms & Conditions
+              </Link>
             </div>
           </div>
         </div>

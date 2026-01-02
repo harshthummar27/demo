@@ -25,18 +25,35 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   
   if (!category) {
     return {
-      title: 'Category Not Found',
+      title: 'Category Not Found | FitZone Gym',
+      description: 'The requested category could not be found.',
     }
   }
 
+  const categoryName = category.name.toLowerCase()
+  const categoryDesc = category.description.toLowerCase()
+
   return {
-    title: `${category.name} - Food Category | FitZone Gym`,
-    description: `Browse our ${category.name.toLowerCase()} category. Find ${category.description.toLowerCase()} and more.`,
-    keywords: `${category.name.toLowerCase()}, ${category.description.toLowerCase()}, food items, nutrition`,
+    title: `${category.name} - Complete Food Category | Nutritional Information | FitZone Gym`,
+    description: `Browse our complete ${categoryName} category with detailed nutritional information. Find ${categoryDesc} including calories, protein, carbs, and health benefits. Explore all ${categoryName} items with complete nutrition facts.`,
+    keywords: `${categoryName}, ${categoryDesc}, ${categoryName} foods, ${categoryName} nutrition, ${categoryName} list, food category, nutritional foods, healthy ${categoryName}, ${categoryName} calories, ${categoryName} protein`,
     openGraph: {
-      title: `${category.name} - Food Category`,
-      description: `Browse our ${category.name.toLowerCase()} category. Find ${category.description.toLowerCase()} and more.`,
+      title: `${category.name} - Food Category | FitZone Gym`,
+      description: `Browse our complete ${categoryName} category with detailed nutritional information. Find ${categoryDesc} and more.`,
       type: 'website',
+      images: category.image ? [
+        {
+          url: category.image,
+          width: 1200,
+          height: 630,
+          alt: `${category.name} Category`,
+        }
+      ] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${category.name} - Food Category`,
+      description: `Browse our complete ${categoryName} category with detailed nutritional information.`,
     },
     alternates: {
       canonical: `/category/${category.slug}`,

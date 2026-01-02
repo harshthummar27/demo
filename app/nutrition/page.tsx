@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Navbar from '@/components/layout/Navbar'
+import NutritionHero from '@/components/NutritionHero'
 import Footer from '@/components/layout/Footer'
 
 export const metadata: Metadata = {
@@ -42,16 +43,7 @@ export default function NutritionPage() {
   return (
     <main className="min-h-screen">
       <Navbar />
-      <section className="pt-24 pb-12 md:pt-28 md:pb-16 bg-gradient-to-b from-gray-900 to-gray-800 text-white">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 text-center">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
-            Nutrition & Diet
-          </h1>
-          <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
-            Fuel your body with the right nutrition. Discover high protein foods, meal plans, and expert nutrition guidance.
-          </p>
-        </div>
-      </section>
+      <NutritionHero />
       <section className="py-12 md:py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
           <div className="grid md:grid-cols-3 gap-6">

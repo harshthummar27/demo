@@ -82,6 +82,7 @@ export default function CategoryDetailInfo({
       foodSlug,
       protein: protein || '0g',
       calories,
+      carbs,
       image,
       price
     }

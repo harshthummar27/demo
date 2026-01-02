@@ -7,6 +7,7 @@ export interface CartItem {
   foodSlug: string
   protein: string
   calories?: string
+  carbs?: string
   image?: string
   price?: string
 }
@@ -103,6 +104,42 @@ export function getTotalProtein(): number {
   })
   
   return Math.round(totalProtein * 10) / 10 // Round to 1 decimal place
+}
+
+// Calculate total calories from all cart items
+export function getTotalCalories(): number {
+  const cartItems = getCartItems()
+  let totalCalories = 0
+  
+  cartItems.forEach(item => {
+    if (item.calories) {
+      // Extract numeric value from calories string (e.g., "100 kcal" -> 100 or "100" -> 100)
+      const caloriesValue = parseFloat(item.calories.replace(/[^\d.]/g, ''))
+      if (!isNaN(caloriesValue)) {
+        totalCalories += caloriesValue
+      }
+    }
+  })
+  
+  return Math.round(totalCalories)
+}
+
+// Calculate total carbs from all cart items
+export function getTotalCarbs(): number {
+  const cartItems = getCartItems()
+  let totalCarbs = 0
+  
+  cartItems.forEach(item => {
+    if (item.carbs) {
+      // Extract numeric value from carbs string (e.g., "25g" -> 25)
+      const carbsValue = parseFloat(item.carbs.replace(/[^\d.]/g, ''))
+      if (!isNaN(carbsValue)) {
+        totalCarbs += carbsValue
+      }
+    }
+  })
+  
+  return Math.round(totalCarbs * 10) / 10 // Round to 1 decimal place
 }
 
 // Check if item is in cart
